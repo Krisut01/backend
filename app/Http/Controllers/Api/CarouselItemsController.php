@@ -21,7 +21,6 @@ class CarouselItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -29,7 +28,7 @@ class CarouselItemsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return carouselItems::findOrFail($id);
     }
     /**
      * Update the specified resource in storage.
