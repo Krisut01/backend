@@ -9,16 +9,10 @@ use App\Http\Requests\CarouselRequest;
 
 class CarouselItemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return CarouselItems::all();
     }
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(CarouselRequest $request)
     {
         $validated = $request->validated();
@@ -28,24 +22,20 @@ class CarouselItemsController extends Controller
         return $carouselItem;
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         return carouselItems::findOrFail($id);
     }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(CarouselRequest $request, string $id) 
     {
-        //
-    }
+        $validated = $request->validated(); 
+        
+        $carouselItem = carouselItems::findOrFail($id);
+        $carouselItem   ->update($validated);
+        return $carouselItem;   
 
-    /**
-     * Remove the specified resource from storage.
-     */
+        }
+
     public function destroy(string $id)
     {
         $carouselItem = carouselItems::findOrFail($id);
