@@ -28,6 +28,7 @@ Route::put('/carousel/{id}', [CarouselItemsController::class, 'update']);
 Route::delete('/carousel/{id}', [CarouselItemsController::class, 'destroy']);
 
 Route::get('/user', [UserController::class, 'index']);
+Route::post('/user', [UserController::class, 'store']);
 
 
 
