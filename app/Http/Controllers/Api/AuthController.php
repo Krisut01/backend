@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use Illuminate\http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,12 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-
+    /**
+     * Login using the specified resource.
+     *
+     * @param  \App\Http\Requests\UserRequest  $request
+     * @return array
+     */
     public function login(UserRequest $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -29,13 +35,26 @@ class AuthController extends Controller
         return $response;
     }
 
-    /**
-     * Login using the specified resource.
-     *
-     * @return bool
-     */
-    public function logout()
+ 
+    public function logout(UserRequest $request)
     {
-        return false;
+        // Revoke the token that was used to authenticate the current request
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out nimo nisuccessfully'], 200);
     }
+
+    //sir code
+    // public function logout(Request $request)
+    // {
+    //     // Revoke the token that was used to authenticate the current request
+    //     $request->user()->tokens()->delete();
+
+    //     $response = [
+    //         'message' => 'logout'
+    //     ];
+
+    //     return $response;
+    // }
 }
+
