@@ -24,6 +24,8 @@ use App\Http\Controllers\Api\CarouselItemsController;
 
     Route::post('/login',[AuthController::class ,'login'])->name('user.login');;
     Route::post('/user', [UserController::class ,'store'])->name('user.store');
+           //OCR
+    Route::post('/ocr',       [AiController::class ,'ocr'])->name('ocr.image');
  
 // Private API
 Route::middleware('auth:sanctum')->group( function () {
@@ -52,8 +54,7 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::get('/profile/show',        [ProfileController::class ,'show']);
         Route::put('/profile/image',       [ProfileController::class ,'image'])->name('profile.image');
 
-
-        Route::put('/ocr',       [AiController::class ,'ocr'])->name('ocr.image');
+ 
 
 });
 
