@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AiController;
 use Illuminate\Http\Request;
 use App\Models\user;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,8 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::get('/profile/show',        [ProfileController::class ,'show']);
         Route::put('/profile/image',       [ProfileController::class ,'image'])->name('profile.image');
 
+
+        Route::put('/ocr',       [AiController::class ,'ocr'])->name('ocr.image');
 
 });
 
