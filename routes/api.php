@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Models\user;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\CarouselItemsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +46,11 @@ Route::middleware('auth:sanctum')->group( function () {
 
         Route::delete('/user/{id}',         'destroy');
         });
+
+        //user Specific Apis   
+        Route::get('/profile/show',        [ProfileController::class ,'show']);
+        Route::put('/profile/image',       [ProfileController::class ,'image'])->name('profile.image');
+
+
 });
 

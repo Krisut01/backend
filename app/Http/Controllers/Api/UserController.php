@@ -60,15 +60,25 @@ class UserController extends Controller
       public function image(Request $request, string $id)
       {
           $user = User::findOrFail($id);
-
-          if(!is_null($user->image)){
-            Storage::disk('public')->delete($user->image);
-          }
-
-          $user->image = $request->file('image')->storePublicly('images', 'public');
-          $user->save();
       
-          return $user;
+          // Check if the file is present in the request
+          if ($request->hasFile('image')) {
+              $image = $request->file('image');
+      
+              // Delete the old image if it exists
+              if (!is_null($user->image)) {
+                  Storage::disk('public')->delete($user->image);
+              }
+      
+              // Store the new image
+              $user->image = $image->storePublicly('images', 'public');
+              $user->save();
+      
+              return $user;
+          } else {
+              return response()->json(['message' => 'No image file found in the request'], 400);
+          }
       }
+      
     
 }
